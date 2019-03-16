@@ -1,0 +1,45 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+ 
+ ARY DB 10 DUP(?)
+
+.CODE
+ MAIN PROC  
+    
+   MOV AX,@DATA
+   MOV DS,AX
+    
+   MOV CX,10
+   MOV SI,OFFSET ARY
+   
+   LEVEL1:
+   MOV AH,1
+   INT 21H
+   
+   MOV [SI],AL
+   INC SI
+   LOOP LEVEL1
+   
+   MOV DX,10
+   MOV AH,2
+   INT 21H
+   MOV DX,13
+   MOV AH,2
+   INT 21H
+   
+   MOV SI,OFFSET ARY
+   MOV DX,[SI]
+   ADD DX,[SI+1]
+   ADD DX,[SI+2]
+   ADD DX,[SI+3]
+   ADD DX,[SI+4]
+   SUB DX,192
+   MOV AH,2
+   INT 21H
+   
+   MOV AH,4CH
+   INT 21H
+    
+    MAIN ENDP
+ END MAIN
